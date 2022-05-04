@@ -4,10 +4,10 @@ namespace BTSPEngine
 {
     public static class AlgorithmExtensions
     {
-        public static AdjacencyGraph<int, TEdge> PrimMST<TEdge>(this IVertexListGraph<int, TEdge> graph, Func<TEdge, double> edgeWeights, int root = 0) 
+        public static UndirectedGraph<int, TEdge> PrimMST<TEdge>(this IVertexListGraph<int, TEdge> graph, Func<TEdge, double> edgeWeights, int root = 0) 
             where TEdge : IEdge<int>
         {
-            var tree = new AdjacencyGraph<int, TEdge>(false, graph.VertexCount, graph.VertexCount + 1);
+            var tree = new UndirectedGraph<int, TEdge>(false);
             var vertices = Enumerable.Range(0, graph.VertexCount);
             tree.AddVertexRange(vertices);
 
