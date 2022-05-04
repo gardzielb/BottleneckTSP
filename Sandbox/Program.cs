@@ -1,6 +1,4 @@
 ﻿using BTSPEngine;
-using QuickGraph;
-using QuickGraph.Serialization;
 
 namespace Sandbox;
 
@@ -13,6 +11,9 @@ static class Program
 
 		var deserializer = new GraphMLDeserializer();
 		var graph = deserializer.Deserialize("btsp01");
-		Console.WriteLine(graph.Vertices);
+		Console.WriteLine(graph.EdgeCount);
+
+		var mst = graph.PrimMST(e => e.Weight);
+		Console.WriteLine(mst.EdgeCount);
 	}
 }

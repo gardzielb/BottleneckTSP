@@ -1,5 +1,5 @@
 ﻿using System.Xml;
-using QuickGraph;
+using QuikGraph;
 
 namespace BTSPEngine;
 
