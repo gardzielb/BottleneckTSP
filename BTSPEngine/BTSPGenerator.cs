@@ -6,14 +6,23 @@ namespace BTSPEngine;
 
 public class BTSPGenerator
 {
+	private readonly double maxWeight;
+
+	public BTSPGenerator(double maxWeight = 100)
+	{
+		this.maxWeight = maxWeight;
+	}
+
 	public BidirectionalMatrixGraph<WeightedEdge> Generate(int size)
 	{
+		var randScale = maxWeight / Math.Sqrt(2);
 		var rng = new Random();
 		var vertexMap = new (double x, double y)[size];
+		
 		for (int i = 0; i < size; i++)
 		{
-			vertexMap[i].x = rng.NextDouble() * 100;
-			vertexMap[i].y = rng.NextDouble() * 100;
+			vertexMap[i].x = rng.NextDouble() * randScale;
+			vertexMap[i].y = rng.NextDouble() * randScale;
 		}
 
 		var graph = new BidirectionalMatrixGraph<WeightedEdge>(size);
