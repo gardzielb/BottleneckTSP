@@ -9,7 +9,7 @@ public class GraphMLDeserializer
 	{
 		string graphMLNamespace = "";
 
-		using (var xmlReader = XmlReader.Create($"{path}.graphml"))
+		using (var xmlReader = XmlReader.Create(path))
 		{
 			// read flow until we hit the graphml node
 			while (xmlReader.Read())
