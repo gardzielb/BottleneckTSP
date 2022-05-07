@@ -1,8 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BTSPEngine", "BTSPEngine\BTSPEngine.csproj", "{3332DD00-21A9-4459-B955-AB77A03D936E}"
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31912.275
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BTSPEngine", "BTSPEngine\BTSPEngine.csproj", "{3332DD00-21A9-4459-B955-AB77A03D936E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sandbox", "Sandbox\Sandbox.csproj", "{C94D1434-847A-4D60-AE0B-3EA64D129942}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sandbox", "Sandbox\Sandbox.csproj", "{C94D1434-847A-4D60-AE0B-3EA64D129942}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GUI", "GUI\GUI.csproj", "{9287DB1D-96FB-479C-9EC9-F22B9C10AAF5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,5 +23,15 @@ Global
 		{C94D1434-847A-4D60-AE0B-3EA64D129942}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C94D1434-847A-4D60-AE0B-3EA64D129942}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C94D1434-847A-4D60-AE0B-3EA64D129942}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9287DB1D-96FB-479C-9EC9-F22B9C10AAF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9287DB1D-96FB-479C-9EC9-F22B9C10AAF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9287DB1D-96FB-479C-9EC9-F22B9C10AAF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9287DB1D-96FB-479C-9EC9-F22B9C10AAF5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {12C1E0B5-4295-4F2D-8BAE-366F63D93423}
 	EndGlobalSection
 EndGlobal

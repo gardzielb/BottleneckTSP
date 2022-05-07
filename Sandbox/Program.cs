@@ -13,7 +13,7 @@ static class Program
 		var graph = deserializer.Deserialize("btsp01");
 		Console.WriteLine(graph.EdgeCount);
 
-		var mst = graph.PrimMST(e => e.Weight);
+		var (mst, totalWeight) = graph.PrimMST(e => e.Weight);
 		Console.WriteLine(mst.EdgeCount);
 	}
 }

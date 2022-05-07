@@ -4,11 +4,12 @@ namespace BTSPEngine
 {
     public static class AlgorithmExtensions
     {
-        public static UndirectedGraph<int, TEdge> PrimMST<TEdge>(this IVertexListGraph<int, TEdge> graph, Func<TEdge, double> edgeWeights, int root = 0) 
+        public static (UndirectedGraph<int, TEdge>, double) PrimMST<TEdge>(this IVertexListGraph<int, TEdge> graph, Func<TEdge, double> edgeWeights, int root = 0) 
             where TEdge : IEdge<int>
         {
             var tree = new UndirectedGraph<int, TEdge>(false);
             var vertices = Enumerable.Range(0, graph.VertexCount);
+            double totalWeight = 0.0;
             tree.AddVertexRange(vertices);
 
             var dists = Enumerable.Repeat(double.PositiveInfinity, graph.VertexCount).ToArray();
@@ -24,6 +25,7 @@ namespace BTSPEngine
                 if(weightedEdges[minVertex] != null)
                 {
                     tree.AddEdge(weightedEdges[minVertex]);
+                    totalWeight += edgeWeights(weightedEdges[minVertex]);
                 }
 
                 foreach (var edge in graph.OutEdges(minVertex))
@@ -36,7 +38,7 @@ namespace BTSPEngine
                 }
             }            
 
-            return tree;
+            return (tree, totalWeight);
         }
     }
 
