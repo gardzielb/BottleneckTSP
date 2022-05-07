@@ -20,12 +20,14 @@ namespace GUI
         /// </summary>
         public ViewModel()
         {
+            GenerateCommand = new RelayCommand(GenerateInstances);
             CalculateCommand = new AsyncRelayCommand(Calculate);
             OpenFileCommand = new RelayCommand(ReadFile);
             OpenExplorerCommand = new RelayCommand(OpenExplorer);
             Directory.CreateDirectory(outputPath);
         }
 
+        public IRelayCommand GenerateCommand { get; }
         public IRelayCommand OpenFileCommand { get; }
         public IRelayCommand OpenExplorerCommand { get; }
         public IAsyncRelayCommand CalculateCommand { get; }
@@ -130,6 +132,12 @@ namespace GUI
             {
                 Console.WriteLine("Nie udało się otworzyć folderu");
             }
+        }
+
+        private void GenerateInstances()
+        {
+            var generateDialog = new GeneratorDialog();
+            generateDialog.Show();
         }
     }
 }
