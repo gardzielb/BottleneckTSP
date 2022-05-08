@@ -5,28 +5,33 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:GUI"
         mc:Ignorable="d"
-        Title="Generator instancji" Height="150" Width="300">
-    <StackPanel>
-        <Grid Margin="7">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-            </Grid.RowDefinitions>
+        Title="Generator instancji" Height="200" Width="300"
+        FocusManager.FocusedElement="{Binding ElementName=VertexCountInput}">
+    
+    <Grid Margin="7">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="180"></ColumnDefinition>
-                <ColumnDefinition Width="Auto"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="180"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
 
-            <TextBlock Margin="3" Grid.Row="0" Grid.Column="0">Maksymalna waga krawędzi</TextBlock>
-            <TextBox Margin="3" Grid.Row="0" Grid.Column="1" MaxLines="1" Name="MaxWeightInput" MinWidth="60"/>
-            <TextBlock Margin="3" Grid.Row="1" Grid.Column="0">Liczba instancji</TextBlock>
-            <TextBox Margin="3" Grid.Row="1" Grid.Column="1" MaxLines="1" Name="InstanceCountInput" MinWidth="60"/>
-        </Grid>
-        
-        <StackPanel Margin="7" Orientation="Horizontal">
-            <Button Padding="5" Margin="3" IsDefault="True" Click="GenerateButton_OnClick">Generuj</Button>
-            <Button Padding="5" Margin="3" IsCancel="True">Anuluj</Button>
-        </StackPanel>
-    </StackPanel>
+        <TextBlock Margin="3" Padding="3" Grid.Row="0" Grid.Column="0">Liczba wierzchołków</TextBlock>
+        <TextBox Margin="3" Padding="3" Grid.Row="0" Grid.Column="1" MaxLines="1" Name="VertexCountInput" MinWidth="60" />
+
+        <TextBlock Margin="3" Padding="3" Grid.Row="1" Grid.Column="0">Maksymalna waga krawędzi</TextBlock>
+        <TextBox Margin="3" Padding="3" Grid.Row="1" Grid.Column="1" MaxLines="1" Name="MaxWeightInput" MinWidth="60" />
+
+        <TextBlock Margin="3" Padding="3" Grid.Row="2" Grid.Column="0">Liczba instancji</TextBlock>
+        <TextBox Margin="3" Padding="3" Grid.Row="2" Grid.Column="1" MaxLines="1" Name="InstanceCountInput"
+                 MinWidth="60" />
+
+        <Button Padding="5" Margin="3" Grid.Row="3" Grid.Column="0" Width="100" HorizontalAlignment="Left"
+                Click="GenerateButton_OnClick" Content="Generuj" />
+    </Grid>
 </Window>
