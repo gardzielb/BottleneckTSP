@@ -40,6 +40,36 @@ namespace BTSPEngine
 
             return (tree, totalWeight);
         }
+
+        public static UndirectedGraph<int, TEdge> ConnectedComponentContaining<TEdge>(
+            this UndirectedGraph<int, TEdge> graph, int v
+        ) where TEdge : IEdge<int>
+        {
+            var component = new UndirectedGraph<int, TEdge>();
+            var visitArray = new bool[graph.VertexCount];
+            var vertexQueue = new Queue<int>();
+            vertexQueue.Enqueue(v);
+            
+            while (vertexQueue.Count > 0)
+            {
+                int u = vertexQueue.Dequeue();
+                if (visitArray[u])
+                    continue;
+                
+                visitArray[u] = true;
+                foreach (var edge in graph.AdjacentEdges(u))
+                {
+                    int w = edge.Source == u ? edge.Target : edge.Source;
+                    if (visitArray[w]) 
+                        continue;
+
+                    component.AddVerticesAndEdge(edge);
+                    vertexQueue.Enqueue(w);
+                }
+            }
+
+            return component;
+        }
     }
 
     public class ListPriorityQueue
