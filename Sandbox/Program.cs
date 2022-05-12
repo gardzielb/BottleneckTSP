@@ -7,7 +7,9 @@ static class Program
 	public static void Main()
 	{
 		var generator = new BTSPGenerator();
-		generator.GenerateToFile(5, "btsp01");
-		generator.GenerateToFile(20, "btsp02");
+		var btsp = generator.Generate(10);
+		var btspSolver = new BTSPSolver();
+		var hamCycle = btspSolver.SolveBTSP(btsp);
+		Console.WriteLine("dupa");
 	}
 }

@@ -46,21 +46,23 @@ namespace BTSPEngine
         ) where TEdge : IEdge<int>
         {
             var component = new UndirectedGraph<int, TEdge>();
-            var visitArray = new bool[graph.VertexCount];
+            var visitedVertices = new HashSet<int>();
             var vertexQueue = new Queue<int>();
             vertexQueue.Enqueue(v);
             
             while (vertexQueue.Count > 0)
             {
                 int u = vertexQueue.Dequeue();
-                if (visitArray[u])
+                if (visitedVertices.Contains(u))
                     continue;
+
+                visitedVertices.Add(u);
+                component.AddVertex(u);
                 
-                visitArray[u] = true;
                 foreach (var edge in graph.AdjacentEdges(u))
                 {
-                    int w = edge.Source == u ? edge.Target : edge.Source;
-                    if (visitArray[w]) 
+                    int w = edge.GetOtherVertex(u);
+                    if (visitedVertices.Contains(w))
                         continue;
 
                     component.AddVerticesAndEdge(edge);
