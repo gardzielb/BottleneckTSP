@@ -31,10 +31,9 @@ namespace GUI
         public IAsyncRelayCommand CalculateCommand { get; }
 
         private string inputGraphFileName;
-        private readonly string outputPath = "../Results";
+        private readonly string outputPath = "./Results";
 
         private bool isProgressBarVisible = false;
-
         public bool IsProgressBarVisible
         {
             get => isProgressBarVisible;
@@ -42,7 +41,6 @@ namespace GUI
         }
 
         private bool isCalculationAvailable;
-
         public bool IsCalculationAvailable
         {
             get => isCalculationAvailable;
@@ -76,7 +74,9 @@ namespace GUI
         private void ReadFile()
         {
             var openFileDialog = new OpenFileDialog();
-            if (openFileDialog.ShowDialog() == true)
+            openFileDialog.InitialDirectory = Path.GetFullPath("./Examples");
+            var dialog = openFileDialog.ShowDialog();
+            if (dialog == true)
             {
                 var deserializer = new GraphMLDeserializer();
                 try
