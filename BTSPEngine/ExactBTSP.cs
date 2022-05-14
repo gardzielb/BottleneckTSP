@@ -7,7 +7,7 @@ namespace BTSPEngine
     {
         public static (UndirectedGraph<int, WeightedEdge> cycle, double cost) CalculateExactBTSP<TEdge>(this IVertexListGraph<int, TEdge> graph, Func<TEdge, double> edgeWeights) where TEdge : IEdge<int>
         {
-            var list = new List<TEdge>(graph.VertexCount);
+            var list = new List<TEdge>();
             double lowestMaxEdgeCost = double.PositiveInfinity;
             foreach (var permutation in graph.Vertices.Permutations())
             {                
@@ -31,11 +31,10 @@ namespace BTSPEngine
                     list = currentCycle;
                 }
             }
-            var g = new UndirectedGraph<int, WeightedEdge>(false);
-            g.AddVertexRange(Enumerable.Range(0, graph.VertexCount));
+            var g = new UndirectedGraph<int, WeightedEdge>(false);            
             foreach (var e in list)
             {
-                g.AddEdge(new WeightedEdge(e.Source, e.Target, edgeWeights(e)));
+                g.AddVerticesAndEdge(new WeightedEdge(e.Source, e.Target, edgeWeights(e)));
             }
             return (g, lowestMaxEdgeCost);
         }
