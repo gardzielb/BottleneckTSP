@@ -1,5 +1,5 @@
-﻿using System.Xml.Serialization;
-using QuikGraph;
+﻿using QuikGraph;
+using System.Xml.Serialization;
 
 namespace BTSPEngine;
 
@@ -16,8 +16,8 @@ public class WeightedEdge : IEdge<int>
 		Weight = weight;
 	}
 
-    public override string ToString()
-    {
-        return $"({Source}, {Target}, {Weight})";
-    }
+	public override string ToString()
+	{
+		return $"({Source}, {Target}, {Weight})";
+	}
 }

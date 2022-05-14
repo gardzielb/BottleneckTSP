@@ -1,5 +1,5 @@
-﻿using System.Xml;
-using QuikGraph;
+﻿using QuikGraph;
+using System.Xml;
 
 namespace BTSPEngine;
 
@@ -33,8 +33,8 @@ public class GraphMLDeserializer
 			while (xmlReader.Read())
 			{
 				if (xmlReader.NodeType == XmlNodeType.Element &&
-				    xmlReader.NamespaceURI == graphMLNamespace &&
-				    xmlReader.Name == "edge")
+					xmlReader.NamespaceURI == graphMLNamespace &&
+					xmlReader.Name == "edge")
 				{
 					using (var subReader = xmlReader.ReadSubtree())
 					{
@@ -50,8 +50,8 @@ public class GraphMLDeserializer
 						while (subReader.Read())
 						{
 							if (xmlReader.NodeType == XmlNodeType.Element &&
-							    xmlReader.Name == "data" &&
-							    xmlReader.NamespaceURI == graphMLNamespace)
+								xmlReader.Name == "data" &&
+								xmlReader.NamespaceURI == graphMLNamespace)
 							{
 								double weight = subReader.ReadElementContentAsDouble();
 								graph.AddEdge(new WeightedEdge(source, target, weight));
