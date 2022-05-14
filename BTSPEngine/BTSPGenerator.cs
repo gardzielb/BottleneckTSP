@@ -6,9 +6,14 @@ namespace BTSPEngine;
 
 public class BTSPGenerator
 {
-	public BidirectionalMatrixGraph<WeightedEdge> Generate(int size)
+	public BidirectionalMatrixGraph<WeightedEdge> Generate(int size, int? seed = null)
 	{
-		var rng = new Random();
+		Random rng = seed switch
+		{
+			null => new Random(),
+			not null => new Random(seed.Value),
+		};
+
 		var vertexMap = new (double x, double y)[size];
 		for (int i = 0; i < size; i++)
 		{
