@@ -6,6 +6,13 @@ namespace BTSPEngine;
 
 public class BTSPGenerator
 {
+	private readonly double maxWeight;
+
+	public BTSPGenerator(double maxWeight = 100)
+	{
+		this.maxWeight = maxWeight;
+	}
+
 	public BidirectionalMatrixGraph<WeightedEdge> Generate(int size, int? seed = null)
 	{
 		Random rng = seed switch
@@ -15,7 +22,8 @@ public class BTSPGenerator
 		};
 
 		var vertexMap = new (double x, double y)[size];
-		
+		var randScale = maxWeight / Math.Sqrt(2);
+
 		for (int i = 0; i < size; i++)
 		{
 			vertexMap[i].x = rng.NextDouble() * randScale;
@@ -40,11 +48,7 @@ public class BTSPGenerator
 	{
 		var graph = Generate(size);
 
-		var xmlSettings = new XmlWriterSettings
-		{
-			Indent = true,
-			IndentChars = "\t"
-		};
+		var xmlSettings = new XmlWriterSettings { Indent = true, IndentChars = "\t" };
 
 		using (var xmlWriter = XmlWriter.Create($"{name}.graphml", xmlSettings))
 		{
