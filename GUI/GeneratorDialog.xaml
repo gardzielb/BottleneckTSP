@@ -5,9 +5,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:GUI"
         mc:Ignorable="d"
-        Title="Generator instancji" Height="200" Width="300"
+        Title="Generator instancji" Height="200" Width="340"
         FocusManager.FocusedElement="{Binding ElementName=VertexCountInput}">
-    
+
     <Grid Margin="7">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -22,16 +22,22 @@
         </Grid.ColumnDefinitions>
 
         <TextBlock Margin="3" Padding="3" Grid.Row="0" Grid.Column="0">Liczba wierzchołków</TextBlock>
-        <TextBox Margin="3" Padding="3" Grid.Row="0" Grid.Column="1" MaxLines="1" Name="VertexCountInput" MinWidth="60" />
+        <TextBox Margin="3" Padding="3" Grid.Row="0" Grid.Column="1" MaxLines="1" MinWidth="60"
+                 PreviewTextInput="TextBox_PreviewTextInput"
+                 Text="{Binding VertexCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}" />
 
         <TextBlock Margin="3" Padding="3" Grid.Row="1" Grid.Column="0">Maksymalna waga krawędzi</TextBlock>
-        <TextBox Margin="3" Padding="3" Grid.Row="1" Grid.Column="1" MaxLines="1" Name="MaxWeightInput" MinWidth="60" />
+        <TextBox Margin="3" Padding="3" Grid.Row="1" Grid.Column="1" MaxLines="1" MinWidth="60"
+                 PreviewTextInput="TextBox_PreviewTextInput"
+                 Text="{Binding MaxEdgeWeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}" />
 
         <TextBlock Margin="3" Padding="3" Grid.Row="2" Grid.Column="0">Liczba instancji</TextBlock>
-        <TextBox Margin="3" Padding="3" Grid.Row="2" Grid.Column="1" MaxLines="1" Name="InstanceCountInput"
-                 MinWidth="60" />
+        <TextBox Margin="3" Padding="3" Grid.Row="2" Grid.Column="1" MaxLines="1" MinWidth="60"
+                 PreviewTextInput="TextBox_PreviewTextInput"
+                 Text="{Binding InstanceCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}" />
 
         <Button Padding="5" Margin="3" Grid.Row="3" Grid.Column="0" Width="100" HorizontalAlignment="Left"
-                Click="GenerateButton_OnClick" Content="Generuj" />
+                Click="GenerateButton_OnClick" Content="Generuj" Name="generateButton" />
+        <TextBlock Margin="3" Padding="3" Grid.Row="3" Grid.Column="1" Name="statusText"></TextBlock>
     </Grid>
 </Window>
