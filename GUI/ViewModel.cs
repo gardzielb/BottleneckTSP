@@ -13,22 +13,24 @@ using System.Xml;
 
 namespace GUI
 {
-	public class ViewModel : ObservableRecipient
-	{
-		/// <summary>
-		/// Creates a new <see cref="SubredditWidgetViewModel"/> instance.
-		/// </summary>
-		public ViewModel()
-		{
-			CalculateCommand = new AsyncRelayCommand(Calculate);
-			OpenFileCommand = new RelayCommand(ReadFile);
-			OpenExplorerCommand = new RelayCommand(OpenExplorer);
-			Directory.CreateDirectory(outputPath);
-		}
+    public class ViewModel : ObservableRecipient
+    {
+        /// <summary>
+        /// Creates a new <see cref="SubredditWidgetViewModel"/> instance.
+        /// </summary>
+        public ViewModel()
+        {
+            GenerateCommand = new RelayCommand(GenerateInstances);
+            CalculateCommand = new AsyncRelayCommand(Calculate);
+            OpenFileCommand = new RelayCommand(ReadFile);
+            OpenExplorerCommand = new RelayCommand(OpenExplorer);
+            Directory.CreateDirectory(outputPath);
+        }
 
-		public IRelayCommand OpenFileCommand { get; }
-		public IRelayCommand OpenExplorerCommand { get; }
-		public IAsyncRelayCommand CalculateCommand { get; }
+        public IRelayCommand GenerateCommand { get; }
+        public IRelayCommand OpenFileCommand { get; }
+        public IRelayCommand OpenExplorerCommand { get; }
+        public IAsyncRelayCommand CalculateCommand { get; }
 
 		private string inputGraphFileName;
 		private readonly string outputPath = "./Results";
@@ -117,19 +119,25 @@ namespace GUI
 			return Path.GetFileName(fullPath);
 		}
 
-		public void OpenExplorer()
-		{
-			try
-			{
-				Process process = new Process();
-				process.StartInfo.UseShellExecute = true;
-				process.StartInfo.FileName = Path.GetFullPath(outputPath);
-				process.Start();
-			}
-			catch (Win32Exception)
-			{
-				Console.WriteLine("Nie udało się otworzyć folderu");
-			}
-		}
-	}
+        public void OpenExplorer()
+        {
+            try
+            {
+                Process process = new Process();
+                process.StartInfo.UseShellExecute = true;
+                process.StartInfo.FileName = Path.GetFullPath(outputPath);
+                process.Start();
+            }
+            catch (Win32Exception)
+            {
+                Console.WriteLine("Nie udało się otworzyć folderu");
+            }
+        }
+
+        private void GenerateInstances()
+        {
+            var generateDialog = new GeneratorDialog();
+            generateDialog.Show();
+        }
+    }
 }

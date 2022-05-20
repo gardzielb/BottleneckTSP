@@ -5,12 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GUI"
         mc:Ignorable="d"
-        Title="Komiwojażer krótkodystansowiec" Height="175" Width="800">
+        Title="Komiwojażer krótkodystansowiec" Height="230" Width="800">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </Window.Resources>
     <DockPanel>
         <StackPanel>
+            <Button HorizontalAlignment="Left" MaxWidth="120" Content="Generuj przykłady" Margin="10" Padding="5" 
+                    Command="{Binding GenerateCommand}"/>
+            
             <DockPanel>
                 <Button Content="Wczytaj plik" Margin="10" Padding="5" Command="{Binding OpenFileCommand}"/>
                 <Label Name="FileLoadingStatus" d:Content="Poprawnie wczytano plik" Content="{Binding FileStatusText}" VerticalAlignment="Center"/>
