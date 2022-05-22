@@ -6,11 +6,16 @@ static class Program
 {
 	public static void Main()
 	{
+		var x = 1.23456789;
+		var y = 0;
+		Console.WriteLine($"{x,10}");
+		Console.WriteLine($"{y,10}");
+		
 		var serializer = new TxtMatrixGraphSerializer();
 		var generator = new BTSPGenerator(serializer);
 
 		var g1 = generator.Generate(10);
-		serializer.Serialize(g1, "g1.txt");
+		serializer.Serialize(g1, "g1");
 		var g2 = serializer.Deserialize("g1.txt");
 
 		if (g1.VertexCount != g2.VertexCount)

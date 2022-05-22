@@ -1,4 +1,5 @@
 ﻿using QuikGraph;
+using System.Text.RegularExpressions;
 
 namespace BTSPEngine
 {
@@ -14,7 +15,8 @@ namespace BTSPEngine
 					foreach (int v in graph.Vertices)
 					{
 						bool isEdge = graph.TryGetEdge(u, v, out WeightedEdge uv);
-						writer.Write(isEdge ? $"{uv.Weight} " : $"0 ");
+						var edgeStr = $"{(isEdge ? uv.Weight : 0),20} ";
+						writer.Write(edgeStr);
 					}
 
 					writer.Write('\n');
@@ -31,7 +33,7 @@ namespace BTSPEngine
 
 				for (int u = 0; u < vertexCount; u++)
 				{
-					var row = reader.ReadLine().Split(' ');
+					var row = Regex.Split(reader.ReadLine().Trim(), "[\t\\s]+");
 					
 					for (int v = 0; v < u; v++)
 					{
