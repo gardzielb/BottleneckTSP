@@ -1,6 +1,6 @@
 ﻿using QuikGraph;
 
-namespace BTSPEngine
+namespace BTSPEngine.Serialization
 {
 	public interface IGraphSerializer
 	{
