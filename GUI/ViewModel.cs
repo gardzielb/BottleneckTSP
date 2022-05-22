@@ -80,7 +80,10 @@ namespace GUI
 			var dialog = openFileDialog.ShowDialog();
 			if (dialog == true)
 			{
-				var deserializer = new GraphMLDeserializer();
+				IGraphSerializer deserializer = openFileDialog.FileName.Contains(".graphml")
+					? new GraphMLSerializer()
+					: new TxtMatrixGraphSerializer();
+				
 				try
 				{
 					inputGraph = deserializer.Deserialize(openFileDialog.FileName);

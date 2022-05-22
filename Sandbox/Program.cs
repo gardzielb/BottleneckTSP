@@ -6,8 +6,8 @@ static class Program
 {
 	public static void Main()
 	{
-		var generator = new BTSPGenerator();
 		var serializer = new TxtMatrixGraphSerializer();
+		var generator = new BTSPGenerator(serializer);
 
 		var g1 = generator.Generate(10);
 		serializer.Serialize(g1, "g1.txt");

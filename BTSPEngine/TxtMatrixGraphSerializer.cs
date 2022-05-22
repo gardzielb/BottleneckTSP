@@ -2,11 +2,11 @@
 
 namespace BTSPEngine
 {
-	public class TxtMatrixGraphSerializer
+	public class TxtMatrixGraphSerializer : IGraphSerializer
 	{
 		public void Serialize(BidirectionalMatrixGraph<WeightedEdge> graph, string path)
 		{
-			using (var writer = new StreamWriter(new FileStream(path, FileMode.Create)))
+			using (var writer = new StreamWriter(new FileStream($"{path}.txt", FileMode.Create)))
 			{
 				writer.WriteLine(graph.VertexCount);
 				foreach (int u in graph.Vertices)
