@@ -1,10 +1,20 @@
 ﻿using QuikGraph;
+using QuikGraph.Serialization;
 using System.Xml;
 
 namespace BTSPEngine;
 
-public class GraphMLDeserializer
+public class GraphMLSerializer : IGraphSerializer
 {
+	public void Serialize(BidirectionalMatrixGraph<WeightedEdge> graph, string path)
+	{
+		var xmlSettings = new XmlWriterSettings { Indent = true, IndentChars = "\t" };
+		using (var xmlWriter = XmlWriter.Create($"{path}.graphml", xmlSettings))
+		{
+			graph.SerializeToGraphML<int, WeightedEdge, BidirectionalMatrixGraph<WeightedEdge>>(xmlWriter);
+		}
+	}
+
 	public BidirectionalMatrixGraph<WeightedEdge> Deserialize(string path)
 	{
 		string graphMLNamespace = "";
@@ -33,8 +43,8 @@ public class GraphMLDeserializer
 			while (xmlReader.Read())
 			{
 				if (xmlReader.NodeType == XmlNodeType.Element &&
-					xmlReader.NamespaceURI == graphMLNamespace &&
-					xmlReader.Name == "edge")
+				    xmlReader.NamespaceURI == graphMLNamespace &&
+				    xmlReader.Name == "edge")
 				{
 					using (var subReader = xmlReader.ReadSubtree())
 					{
@@ -50,8 +60,8 @@ public class GraphMLDeserializer
 						while (subReader.Read())
 						{
 							if (xmlReader.NodeType == XmlNodeType.Element &&
-								xmlReader.Name == "data" &&
-								xmlReader.NamespaceURI == graphMLNamespace)
+							    xmlReader.Name == "data" &&
+							    xmlReader.NamespaceURI == graphMLNamespace)
 							{
 								double weight = subReader.ReadElementContentAsDouble();
 								graph.AddEdge(new WeightedEdge(source, target, weight));

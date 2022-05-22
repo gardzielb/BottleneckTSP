@@ -7,9 +7,11 @@ namespace BTSPEngine;
 public class BTSPGenerator
 {
 	private readonly double maxWeight;
+	private readonly IGraphSerializer graphSerializer;
 
-	public BTSPGenerator(double maxWeight = 100)
+	public BTSPGenerator(IGraphSerializer graphSerializer, double maxWeight = 100)
 	{
+		this.graphSerializer = graphSerializer;
 		this.maxWeight = maxWeight;
 	}
 
@@ -44,17 +46,7 @@ public class BTSPGenerator
 		return graph;
 	}
 
-	public void GenerateToFile(int size, string name)
-	{
-		var graph = Generate(size);
-
-		var xmlSettings = new XmlWriterSettings { Indent = true, IndentChars = "\t" };
-
-		using (var xmlWriter = XmlWriter.Create($"{name}.graphml", xmlSettings))
-		{
-			graph.SerializeToGraphML<int, WeightedEdge, BidirectionalMatrixGraph<WeightedEdge>>(xmlWriter);
-		}
-	}
+	public void GenerateToFile(int size, string name) => graphSerializer.Serialize(Generate(size), name);
 
 	private double Distance((double x, double y) u, (double x, double y) v)
 	{

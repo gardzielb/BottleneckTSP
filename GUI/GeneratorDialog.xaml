@@ -5,11 +5,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:GUI"
         mc:Ignorable="d"
-        Title="Generator instancji" Height="200" Width="340"
+        Title="Generator instancji" Height="240" Width="360"
         FocusManager.FocusedElement="{Binding ElementName=VertexCountInput}">
 
     <Grid Margin="7">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -36,8 +37,14 @@
                  PreviewTextInput="TextBox_PreviewTextInput"
                  Text="{Binding InstanceCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}" />
 
-        <Button Padding="5" Margin="3" Grid.Row="3" Grid.Column="0" Width="100" HorizontalAlignment="Left"
+        <TextBlock Margin="3" Padding="3" Grid.Row="3" Grid.Column="0">Format pliku</TextBlock>
+        <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1">
+            <RadioButton Margin="6" GroupName="format" Content="Macierz"  IsChecked="{Binding GenerateTxt}"/>
+            <RadioButton Margin="6" GroupName="format" Content="GraphML"/>
+        </StackPanel>
+
+        <Button Padding="5" Margin="3" Grid.Row="4" Grid.Column="0" Width="100" HorizontalAlignment="Left"
                 Click="GenerateButton_OnClick" Content="Generuj" Name="generateButton" />
-        <TextBlock Margin="3" Padding="3" Grid.Row="3" Grid.Column="1" Name="statusText"></TextBlock>
+        <TextBlock Margin="3" Padding="3" Grid.Row="4" Grid.Column="1" Name="statusText"></TextBlock>
     </Grid>
 </Window>

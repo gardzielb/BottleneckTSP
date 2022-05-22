@@ -15,6 +15,7 @@ public partial class GeneratorDialog : Window
 	public int VertexCount { get; set; } = 10;
 	public int MaxEdgeWeight { get; set; } = 100;
 	public int InstanceCount { get; set; } = 1;
+	public bool GenerateTxt { get; set; } = true;
 
 	public GeneratorDialog()
 	{
@@ -24,17 +25,18 @@ public partial class GeneratorDialog : Window
 
 	private async void GenerateButton_OnClick(object sender, RoutedEventArgs e)
 	{
-		var generator = new BTSPGenerator(MaxEdgeWeight);
+		IGraphSerializer graphSerializer = GenerateTxt ? new TxtMatrixGraphSerializer() : new GraphMLSerializer();
+		var generator = new BTSPGenerator(graphSerializer, MaxEdgeWeight);
 
 		const string dirName = "generated-examples";
 		Directory.CreateDirectory(dirName);
 
 		int i0 = 0;
-		while (File.Exists($"{MakeFileName(dirName, VertexCount, MaxEdgeWeight, i0)}.graphml"))
+		while (IsFileNameTaken(dirName, i0))
 			i0++;
 
 		generateButton.IsEnabled = false;
-		statusText.Text = $"Trwa generowanie...";
+		statusText.Text = "Trwa generowanie...";
 
 		await Task.Run(() =>
 		{
@@ -51,6 +53,12 @@ public partial class GeneratorDialog : Window
 
 	private string MakeFileName(string dir, int n, double wMax, int i) =>
 		i == 0 ? $"{dir}/btsp-n{n}-w{wMax}" : $"{dir}/btsp-n{n}-w{wMax}-{i}";
+
+	private bool IsFileNameTaken(string dir, int i)
+	{
+		return File.Exists($"{MakeFileName(dir, VertexCount, MaxEdgeWeight, i)}.graphml") ||
+		       File.Exists($"{MakeFileName(dir, VertexCount, MaxEdgeWeight, i)}.txt");
+	}
 
 	protected override void OnClosing(CancelEventArgs e)
 	{
