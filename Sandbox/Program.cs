@@ -7,13 +7,16 @@ static class Program
 {
 	public static void Main()
 	{
+		var batchTester = new BatchTester(new BTSPGenerator());
+		batchTester.RunTests(fromSize: 5, toSize: 100, sizeStep: 5, samplesPerSize: 3, reportPath: "report01.csv");
+
 		var x = 1.23456789;
 		var y = 0;
 		Console.WriteLine($"{x,10}");
 		Console.WriteLine($"{y,10}");
-		
+
 		var serializer = new TxtMatrixGraphSerializer();
-		var generator = new BTSPGenerator(serializer);
+		var generator = new BTSPGenerator();
 
 		var g1 = generator.Generate(10);
 		serializer.Serialize(g1, "g1");

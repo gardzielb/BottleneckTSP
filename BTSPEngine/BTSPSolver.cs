@@ -5,9 +5,15 @@ namespace BTSPEngine;
 using WeightedGraph = IVertexListGraph<int, WeightedEdge>;
 using WeightedSparseGraph = UndirectedGraph<int, WeightedEdge>;
 
+public record BTSPSolution(
+	WeightedSparseGraph Cycle,
+	double CycleMaxEdgeWeight,
+	double BSTMaxEdgeWeight
+);
+
 public class BTSPSolver
 {
-	public WeightedSparseGraph SolveBTSP(WeightedGraph btsp)
+	public BTSPSolution SolveBTSP(WeightedGraph btsp)
 	{
 		if (btsp.VertexCount < 3)
 			throw new ArgumentException("BTSP graph must contain at least 3 vertices");
@@ -21,7 +27,11 @@ public class BTSPSolver
 
 		var hamCycle = FindHamilton(btsp, bst, u, v);
 		hamCycle.AddEdge(uvEdge);
-		return hamCycle;
+
+		var cycleMaxWeight = hamCycle.Edges.Max(e => e.Weight);
+		var bstMaxWeigth = bst.Edges.Max(e => e.Weight);
+		
+		return new BTSPSolution(hamCycle, cycleMaxWeight, bstMaxWeigth);
 	}
 
 	/// <summary>
@@ -34,7 +44,7 @@ public class BTSPSolver
 
 		var uvBst = bst.Clone();
 		uvBst.RemoveAdjacentEdgeIf(u, e => e.GetOtherVertex(u) == v);
-		
+
 		var uBst = uvBst.ConnectedComponentContaining(u);
 		var vBst = uvBst.ConnectedComponentContaining(v);
 
@@ -66,11 +76,13 @@ public class BTSPSolver
 		return hamPath;
 	}
 
-	private WeightedEdge ProcessBstComponent(WeightedSparseGraph hamPath, WeightedGraph btsp,
-		WeightedSparseGraph bst, int v)
+	private WeightedEdge ProcessBstComponent(
+		WeightedSparseGraph hamPath, WeightedGraph btsp,
+		WeightedSparseGraph bst, int v
+	)
 	{
 		var e = bst.AdjacentEdge(v, 0);
-		
+
 		if (bst.VertexCount == 2)
 		{
 			hamPath.AddVerticesAndEdge(e);

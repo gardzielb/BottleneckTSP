@@ -27,7 +27,7 @@ public partial class GeneratorDialog : Window
 	private async void GenerateButton_OnClick(object sender, RoutedEventArgs e)
 	{
 		IGraphSerializer graphSerializer = GenerateTxt ? new TxtMatrixGraphSerializer() : new GraphMLSerializer();
-		var generator = new BTSPGenerator(graphSerializer, MaxEdgeWeight);
+		var generator = new BTSPGenerator(MaxEdgeWeight);
 
 		const string dirName = "generated-examples";
 		Directory.CreateDirectory(dirName);
@@ -43,7 +43,9 @@ public partial class GeneratorDialog : Window
 		{
 			for (int i = 0; i < InstanceCount; i++)
 			{
-				generator.GenerateToFile(VertexCount, MakeFileName(dirName, VertexCount, MaxEdgeWeight, i0 + i));
+				generator.GenerateToFile(
+					VertexCount, MakeFileName(dirName, VertexCount, MaxEdgeWeight, i0 + i), graphSerializer
+				);
 			}
 		}, cancelTokenSource.Token);
 

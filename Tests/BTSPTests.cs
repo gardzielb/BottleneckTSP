@@ -23,13 +23,15 @@ public class BTSPTests
 	public void CorrectnessTest(IVertexListGraph<int, WeightedEdge> inputGraph)
 	{
 		var solver = new BTSPSolver();
-		var approxCycle = solver.SolveBTSP(inputGraph);
+		var solution = solver.SolveBTSP(inputGraph);
+		var approxCycle = solution.Cycle;
+		var approxCost = solution.CycleMaxEdgeWeight;
 
 		var (mst, _) = inputGraph.PrimMST(e => e.Weight);
-		var approxCost = approxCycle.Edges.Max(x => x.Weight);
-		var (exactCycle, exactCost) = inputGraph.ExactBTSP(e => e.Weight);
+		var (_, exactCost) = inputGraph.ExactBTSP(e => e.Weight);
 		output.WriteLine($"exactCost: {exactCost:0.###}, approxCost: {approxCost:0.###}");
 
+		approxCost.Should().Be(approxCycle.Edges.Max(e => e.Weight));
 		approxCost.Should().BeInRange(exactCost, 3 * exactCost);
 		approxCycle.VertexCount.Should().Be(inputGraph.VertexCount);
 		approxCycle.EdgeCount.Should().Be(inputGraph.VertexCount);
@@ -42,11 +44,13 @@ public class BTSPTests
 	public void ApproxCorrectnessTest(IVertexListGraph<int, WeightedEdge> inputGraph)
 	{
 		var solver = new BTSPSolver();
-		var approxCycle = solver.SolveBTSP(inputGraph);
-
+		var solution = solver.SolveBTSP(inputGraph);
+		var approxCycle = solution.Cycle;
+		var approxCost = solution.CycleMaxEdgeWeight;
+		
 		var (mst, _) = inputGraph.PrimMST(e => e.Weight);
-		var approxCost = approxCycle.Edges.Max(x => x.Weight);
 
+		approxCost.Should().Be(approxCycle.Edges.Max(e => e.Weight));
 		approxCycle.VertexCount.Should().Be(inputGraph.VertexCount);
 		approxCycle.EdgeCount.Should().Be(inputGraph.VertexCount);
 		Utilities.IsCycle(approxCycle).Should().BeTrue();
@@ -54,11 +58,10 @@ public class BTSPTests
 	}
 
 
-
 	private static IEnumerable<object[]> RandomGraphs(int maxSize)
 	{
 		const int seed = 123;
-		var generator = new BTSPGenerator(null, 100);
+		var generator = new BTSPGenerator();
 		var rng = new Random(seed);
 
 		for (int i = 0; i < 100; i++)
