@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using BTSPEngine.Serialization;
 
 namespace GUI;
 
@@ -57,7 +58,7 @@ public partial class GeneratorDialog : Window
 	private bool IsFileNameTaken(string dir, int i)
 	{
 		return File.Exists($"{MakeFileName(dir, VertexCount, MaxEdgeWeight, i)}.graphml") ||
-		       File.Exists($"{MakeFileName(dir, VertexCount, MaxEdgeWeight, i)}.txt");
+			   File.Exists($"{MakeFileName(dir, VertexCount, MaxEdgeWeight, i)}.txt");
 	}
 
 	protected override void OnClosing(CancelEventArgs e)

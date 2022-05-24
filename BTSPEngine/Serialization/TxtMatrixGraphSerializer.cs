@@ -1,7 +1,7 @@
 ﻿using QuikGraph;
 using System.Text.RegularExpressions;
 
-namespace BTSPEngine
+namespace BTSPEngine.Serialization
 {
 	public class TxtMatrixGraphSerializer : IGraphSerializer
 	{
