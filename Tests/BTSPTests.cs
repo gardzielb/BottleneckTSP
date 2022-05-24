@@ -22,11 +22,11 @@ public class BTSPTests
 	[MemberData(nameof(RandomGraphs), parameters: 10)]
 	public void CorrectnessTest(IVertexListGraph<int, WeightedEdge> inputGraph)
 	{
-		var bb = new BTSPSolver();
-		var approxCycle = bb.SolveBTSP(inputGraph);
+		var solver = new BTSPSolver();
+		var approxCycle = solver.SolveBTSP(inputGraph);
 
 		var (mst, _) = inputGraph.PrimMST(e => e.Weight);
-		var approxCost = approxCycle.Edges.MaxBy(x => x.Weight).Weight;
+		var approxCost = approxCycle.Edges.Max(x => x.Weight);
 		var (exactCycle, exactCost) = inputGraph.ExactBTSP(e => e.Weight);
 		output.WriteLine($"exactCost: {exactCost:0.###}, approxCost: {approxCost:0.###}");
 
@@ -45,7 +45,7 @@ public class BTSPTests
 		var approxCycle = solver.SolveBTSP(inputGraph);
 
 		var (mst, _) = inputGraph.PrimMST(e => e.Weight);
-		var approxCost = approxCycle.Edges.MaxBy(x => x.Weight).Weight;
+		var approxCost = approxCycle.Edges.Max(x => x.Weight);
 
 		approxCycle.VertexCount.Should().Be(inputGraph.VertexCount);
 		approxCycle.EdgeCount.Should().Be(inputGraph.VertexCount);
