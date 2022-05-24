@@ -2,7 +2,7 @@
 using QuikGraph.Serialization;
 using System.Xml;
 
-namespace BTSPEngine;
+namespace BTSPEngine.Serialization;
 
 public class GraphMLSerializer : IGraphSerializer
 {

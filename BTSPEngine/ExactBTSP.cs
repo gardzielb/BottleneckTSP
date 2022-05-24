@@ -3,9 +3,9 @@ using QuikGraph;
 
 namespace BTSPEngine
 {
-	public static class ExactBTSP
+	public static class ExactBTSPSolver
 	{
-		public static (UndirectedGraph<int, WeightedEdge> cycle, double cost) CalculateExactBTSP<TEdge>(this IVertexListGraph<int, TEdge> graph, Func<TEdge, double> edgeWeights) where TEdge : IEdge<int>
+		public static (UndirectedGraph<int, WeightedEdge> cycle, double cost) ExactBTSP<TEdge>(this IVertexListGraph<int, TEdge> graph, Func<TEdge, double> edgeWeights) where TEdge : IEdge<int>
 		{
 			var list = new List<TEdge>();
 			double lowestMaxEdgeCost = double.PositiveInfinity;
