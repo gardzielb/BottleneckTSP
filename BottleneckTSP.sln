@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sandbox", "Sandbox\Sandbox.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GUI", "GUI\GUI.csproj", "{9287DB1D-96FB-479C-9EC9-F22B9C10AAF5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{59DB4015-9C12-4BB8-9061-07863762C16D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Tests\Tests.csproj", "{59DB4015-9C12-4BB8-9061-07863762C16D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleUI", "ConsoleUI\ConsoleUI.csproj", "{FBEED80B-144F-424F-A219-F4A4D147B604}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{59DB4015-9C12-4BB8-9061-07863762C16D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{59DB4015-9C12-4BB8-9061-07863762C16D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{59DB4015-9C12-4BB8-9061-07863762C16D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBEED80B-144F-424F-A219-F4A4D147B604}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBEED80B-144F-424F-A219-F4A4D147B604}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBEED80B-144F-424F-A219-F4A4D147B604}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBEED80B-144F-424F-A219-F4A4D147B604}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

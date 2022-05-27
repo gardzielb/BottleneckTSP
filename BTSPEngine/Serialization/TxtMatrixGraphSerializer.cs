@@ -24,6 +24,43 @@ namespace BTSPEngine.Serialization
 			}
 		}
 
+		public void Serialize(UndirectedGraph<int, WeightedEdge> cycle, string path)
+		{
+			string pathWithExtension = Path.HasExtension(path) ? path : $"{path}.txt";
+			using var writer = new StreamWriter(new FileStream(pathWithExtension, FileMode.Create));
+			writer.WriteLine(cycle.VertexCount);
+
+			var edges = cycle.Edges.ToList();
+			var currentVertex = edges.First().Target;
+			writer.Write($"{currentVertex} ");
+			while (edges.Count > 0)
+			{
+				bool foundMatch = false;
+				foreach (var edge in edges.Skip(edges.Count == 1 ? 0 : 1))
+				{
+					if (currentVertex == edge.Source)
+					{
+						edges.Remove(edge);
+						currentVertex = edge.Target;
+						writer.Write($"{currentVertex} ");
+						foundMatch = true;
+						break;
+					}
+					else if (currentVertex == edge.Target)
+					{
+						edges.Remove(edge);
+						currentVertex = edge.Source;
+						writer.Write($"{currentVertex} ");
+						foundMatch = true;
+						break;
+					}
+				}
+				if (!foundMatch)
+					throw new ArgumentException("Not a cycle");
+			}
+			writer.Write('\n');
+		}
+
 		public BidirectionalMatrixGraph<WeightedEdge> Deserialize(string path)
 		{
 			using (var reader = new StreamReader(new FileStream(path, FileMode.Open)))
@@ -34,7 +71,7 @@ namespace BTSPEngine.Serialization
 				for (int u = 0; u < vertexCount; u++)
 				{
 					var row = Regex.Split(reader.ReadLine().Trim(), "[\t\\s]+");
-					
+
 					for (int v = 0; v < u; v++)
 					{
 						var weight = double.Parse(row[v]);

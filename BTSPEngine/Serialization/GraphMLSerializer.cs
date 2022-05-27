@@ -15,6 +15,15 @@ public class GraphMLSerializer : IGraphSerializer
 		}
 	}
 
+	public void Serialize(UndirectedGraph<int, WeightedEdge> cycle, string path)
+	{
+		var xmlSettings = new XmlWriterSettings { Indent = true, IndentChars = "\t" };
+		using (var xmlWriter = XmlWriter.Create($"{path}.graphml", xmlSettings))
+		{
+			cycle.SerializeToGraphML<int, WeightedEdge, UndirectedGraph<int, WeightedEdge>>(xmlWriter);
+		}
+	}
+
 	public BidirectionalMatrixGraph<WeightedEdge> Deserialize(string path)
 	{
 		string graphMLNamespace = "";
@@ -43,8 +52,8 @@ public class GraphMLSerializer : IGraphSerializer
 			while (xmlReader.Read())
 			{
 				if (xmlReader.NodeType == XmlNodeType.Element &&
-				    xmlReader.NamespaceURI == graphMLNamespace &&
-				    xmlReader.Name == "edge")
+					xmlReader.NamespaceURI == graphMLNamespace &&
+					xmlReader.Name == "edge")
 				{
 					using (var subReader = xmlReader.ReadSubtree())
 					{
@@ -60,8 +69,8 @@ public class GraphMLSerializer : IGraphSerializer
 						while (subReader.Read())
 						{
 							if (xmlReader.NodeType == XmlNodeType.Element &&
-							    xmlReader.Name == "data" &&
-							    xmlReader.NamespaceURI == graphMLNamespace)
+								xmlReader.Name == "data" &&
+								xmlReader.NamespaceURI == graphMLNamespace)
 							{
 								double weight = subReader.ReadElementContentAsDouble();
 								graph.AddEdge(new WeightedEdge(source, target, weight));
