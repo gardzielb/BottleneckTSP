@@ -38,41 +38,41 @@ namespace BTSPEngine
 				}
 			}
 
-            return (tree, totalWeight);
-        }
+			return (tree, totalWeight);
+		}
 
-        public static UndirectedGraph<int, TEdge> ConnectedComponentContaining<TEdge>(
-            this UndirectedGraph<int, TEdge> graph, int v
-        ) where TEdge : IEdge<int>
-        {
-            var component = new UndirectedGraph<int, TEdge>();
-            var visitedVertices = new HashSet<int>();
-            var vertexQueue = new Queue<int>();
-            vertexQueue.Enqueue(v);
-            
-            while (vertexQueue.Count > 0)
-            {
-                int u = vertexQueue.Dequeue();
-                if (visitedVertices.Contains(u))
-                    continue;
+		public static UndirectedGraph<int, TEdge> ConnectedComponentContaining<TEdge>(
+			this UndirectedGraph<int, TEdge> graph, int v
+		) where TEdge : IEdge<int>
+		{
+			var component = new UndirectedGraph<int, TEdge>();
+			var visitedVertices = new HashSet<int>();
+			var vertexQueue = new Queue<int>();
+			vertexQueue.Enqueue(v);
 
-                visitedVertices.Add(u);
-                component.AddVertex(u);
-                
-                foreach (var edge in graph.AdjacentEdges(u))
-                {
-                    int w = edge.GetOtherVertex(u);
-                    if (visitedVertices.Contains(w))
-                        continue;
+			while (vertexQueue.Count > 0)
+			{
+				int u = vertexQueue.Dequeue();
+				if (visitedVertices.Contains(u))
+					continue;
 
-                    component.AddVerticesAndEdge(edge);
-                    vertexQueue.Enqueue(w);
-                }
-            }
+				visitedVertices.Add(u);
+				component.AddVertex(u);
 
-            return component;
-        }
-    }
+				foreach (var edge in graph.AdjacentEdges(u))
+				{
+					int w = edge.GetOtherVertex(u);
+					if (visitedVertices.Contains(w))
+						continue;
+
+					component.AddVerticesAndEdge(edge);
+					vertexQueue.Enqueue(w);
+				}
+			}
+
+			return component;
+		}
+	}
 
 	public class ListPriorityQueue
 	{

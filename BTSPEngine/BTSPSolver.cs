@@ -30,7 +30,7 @@ public class BTSPSolver
 
 		var cycleMaxWeight = hamCycle.Edges.Max(e => e.Weight);
 		var bstMaxWeigth = bst.Edges.Max(e => e.Weight);
-		
+
 		return new BTSPSolution(hamCycle, cycleMaxWeight, bstMaxWeigth);
 	}
 
