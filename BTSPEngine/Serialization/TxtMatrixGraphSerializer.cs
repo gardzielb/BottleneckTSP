@@ -24,11 +24,11 @@ namespace BTSPEngine.Serialization
 			}
 		}
 
-		public void Serialize(UndirectedGraph<int, WeightedEdge> cycle, string path)
+		public void Serialize(UndirectedGraph<int, WeightedEdge> cycle, string path, double maxCost)
 		{
 			string pathWithExtension = Path.HasExtension(path) ? path : $"{path}.txt";
 			using var writer = new StreamWriter(new FileStream(pathWithExtension, FileMode.Create));
-			writer.WriteLine(cycle.VertexCount);
+			writer.WriteLine(maxCost);
 
 			var edges = cycle.Edges.ToList();
 			var currentVertex = edges.First().Target;
