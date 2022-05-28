@@ -33,11 +33,11 @@ class Program
 					);
 				}
 
-				if (!maxEdgeWeight.HasValue || maxEdgeWeight.Value < 0)
+				if (!maxEdgeWeight.HasValue || maxEdgeWeight.Value <= 0)
 				{
 					maxEdgeWeight = AnsiConsole.Prompt(
 						new TextPrompt<int>("Maksymalna waga krawędzi w grafie:")
-						.Validate(x => x < 0 ? ValidationResult.Error("[red]Wagi wierzchołków w grafie muszą być nieujemne[/]") : ValidationResult.Success())
+						.Validate(x => x <= 0 ? ValidationResult.Error("[red]Wagi wierzchołków w grafie muszą być dodatnie[/]") : ValidationResult.Success())
 						.ValidationErrorMessage("[red]Niepoprawna wartość[/]")
 					);
 				}
