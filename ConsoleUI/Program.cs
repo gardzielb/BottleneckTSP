@@ -24,27 +24,30 @@ class Program
 
 			if (mode == 1)
 			{
-				if (!vertexCount.HasValue)
+				if (!vertexCount.HasValue || vertexCount.Value < 1)
 				{
 					vertexCount = AnsiConsole.Prompt(
 						new TextPrompt<int>("Liczba wierzchołków grafu:")
-						.InvalidChoiceMessage("[red]Niepoprawna wartość[/]")
+						.Validate(x => x < 1 ? ValidationResult.Error("[red]Graf musi mieć przynajmniej 1 wierzchołek[/]") : ValidationResult.Success())
+						.ValidationErrorMessage("[red]Niepoprawna wartość[/]")
 					);
 				}
 
-				if (!maxEdgeWeight.HasValue)
+				if (!maxEdgeWeight.HasValue || maxEdgeWeight.Value <= 0)
 				{
 					maxEdgeWeight = AnsiConsole.Prompt(
 						new TextPrompt<int>("Maksymalna waga krawędzi w grafie:")
-						.InvalidChoiceMessage("[red]Niepoprawna wartość[/]")
+						.Validate(x => x <= 0 ? ValidationResult.Error("[red]Wagi wierzchołków w grafie muszą być dodatnie[/]") : ValidationResult.Success())
+						.ValidationErrorMessage("[red]Niepoprawna wartość[/]")
 					);
 				}
 
-				if (!instanceCount.HasValue)
+				if (!instanceCount.HasValue || instanceCount.Value < 1)
 				{
 					instanceCount = AnsiConsole.Prompt(
 						new TextPrompt<int>("Liczba instancji:")
-						.InvalidChoiceMessage("[red]Niepoprawna wartość[/]")
+						.Validate(x => x < 1 ? ValidationResult.Error("[red]Wygenerowana musi zostać przynajmniej 1 instancja[/]") : ValidationResult.Success())
+						.ValidationErrorMessage("[red]Niepoprawna wartość[/]")
 					);
 				}
 
@@ -67,7 +70,7 @@ class Program
 				}
 				else
 				{
-					AnsiConsole.Markup("Otrzymany wynik to: [bold]{0}[/],\nPlik wynikowy zapisano w {1}", calculationResult.Value.maxEdgeWeight, calculationResult.Value.filePath);
+					AnsiConsole.Markup("Otrzymany wynik to: [bold]{0}[/]\nPlik wynikowy zapisano w: {1}\n", calculationResult.Value.maxEdgeWeight, calculationResult.Value.filePath);
 				}
 			}
 			mode = null;
@@ -75,6 +78,7 @@ class Program
 			maxEdgeWeight = null;
 			instanceCount = null;
 			filePath = null;
+			AnsiConsole.MarkupLine("\n");
 		} while (!anyParameterEntered);
 	}
 
@@ -113,7 +117,7 @@ class Program
 			}
 			return dirInfo;
 		});
-		AnsiConsole.Markup("Pomyślnie wygenerowano przykłady w katalogu {0}", dirInfo?.FullName);
+		AnsiConsole.Markup("Pomyślnie wygenerowano przykłady w katalogu {0}\n", dirInfo?.FullName);
 	}
 
 	private static Task<Result<(double maxEdgeWeight, string filePath)>> Calculate(string filePath)
@@ -134,7 +138,7 @@ class Program
 
 					ctx.Status("Zapisywanie wyniku...");
 					var resultPath = Path.GetFullPath($"./{Path.GetFileNameWithoutExtension(filePath)}_result.txt");
-					deserializer.Serialize(solution.Cycle, resultPath);
+					deserializer.Serialize(solution.Cycle, resultPath, solution.CycleMaxEdgeWeight);
 
 					return (solution.CycleMaxEdgeWeight, resultPath);
 				}

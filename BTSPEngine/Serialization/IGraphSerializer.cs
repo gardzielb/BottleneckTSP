@@ -6,6 +6,6 @@ namespace BTSPEngine.Serialization
 	{
 		void Serialize(BidirectionalMatrixGraph<WeightedEdge> graph, string path);
 		BidirectionalMatrixGraph<WeightedEdge> Deserialize(string path);
-		void Serialize(UndirectedGraph<int, WeightedEdge> cycle, string path);
+		void Serialize(UndirectedGraph<int, WeightedEdge> cycle, string path, double maxCost);
 	}
 }

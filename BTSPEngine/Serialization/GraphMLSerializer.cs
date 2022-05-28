@@ -15,7 +15,7 @@ public class GraphMLSerializer : IGraphSerializer
 		}
 	}
 
-	public void Serialize(UndirectedGraph<int, WeightedEdge> cycle, string path)
+	public void Serialize(UndirectedGraph<int, WeightedEdge> cycle, string path, double maxCost)
 	{
 		var xmlSettings = new XmlWriterSettings { Indent = true, IndentChars = "\t" };
 		using (var xmlWriter = XmlWriter.Create($"{path}.graphml", xmlSettings))
